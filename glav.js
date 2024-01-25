@@ -33,7 +33,13 @@ function calculateAction(operator) {
   } else if (currentOperator === '*') {
     currentResult *= currentNumber;
   } else if (currentOperator === '/') {
-    currentResult /= currentNumber;
+    if(currentNumber === 0){
+      alert('На ноль делить нельзя!');
+      currentResult = 0;
+    }
+    else{
+      currentResult /= currentNumber;
+    }
   } else if (currentOperator === '%') {
     currentResult = (currentResult / 100) * currentNumber;
   }
@@ -49,8 +55,14 @@ function calculateAction(operator) {
     currentResult = -currentResult;
     result.value = currentResult;
   } else if (operator === '√') {
-    currentResult = Math.sqrt(currentResult);
-    result.value = currentResult;
+    if (currentResult < 0) {
+      alert("Нельзя извлечь корень из отрицательного числа!");
+      result.value = 0;
+    }
+    else{
+      currentResult = Math.sqrt(currentResult);
+      result.value = currentResult;
+    }
   } else {
     result.value = currentResult + operator;
     currentOperator = operator;
