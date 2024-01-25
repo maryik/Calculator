@@ -18,7 +18,7 @@ body{
 }
 input{
     position: absolute;
-    width: 260px;
+    width: 265px;
     height: 85px;
     margin-left: 10px;
     outline: none;
@@ -44,6 +44,7 @@ button{
     transition: transform 0,3s ease;
     font-size: x-large;
     text-align: center;
+    box-shadow: 0 0 3px rgba(255, 253, 253, 5);
 }
 .btn-action{
    background-color: transparent;
