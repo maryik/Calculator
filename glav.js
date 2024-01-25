@@ -13,64 +13,47 @@ function AddNumber(number) {
   const result = document.getElementById('result');
   const currentValue = result.value;
 
-  const newValue = currentValue === '0' || isOperatorClicked ? String(number) : currentValue + String(number);
-  result.value = newValue;
+  if (currentValue === '0' || isOperatorClicked) {
+    result.value = String(number);
+  } else {
+    result.value += String(number);
+  }
+  
+  isOperatorClicked = false;
 }
 
 function calculateAction(operator) {
   const result = document.getElementById('result');
+  const currentNumber = parseFloat(result.value);
 
-  if (!isOperatorClicked) {
-    currentResult = parseFloat(result.value);
-    isOperatorClicked = true;
-  } else {
-    const number = parseFloat(result.value);
-
-    switch (currentOperator) {
-      case '√':
-        currentResult = Math.sqrt(number);
-        break;
-      case '+/-':
-        currentResult *= -1;
-        break;
-      case '%':
-        currentResult = (currentResult / 100) * number;
-        break;
-      case '+':
-        currentResult += number;
-        break;
-      case '-':
-        currentResult -= number;
-        break;
-      case '*':
-        currentResult *= number;
-        break;
-      case '/':
-        if (number === 0) {
-          alert('На ноль делить нельзя!');
-          result.value = '0';
-        } else {
-          currentResult /= number;
-        }
-        break;
-    }
+  if (currentOperator === '+') {
+    currentResult += currentNumber;
+  } else if (currentOperator === '-') {
+    currentResult -= currentNumber;
+  } else if (currentOperator === '*') {
+    currentResult *= currentNumber;
+  } else if (currentOperator === '/') {
+    currentResult /= currentNumber;
+  } else if (currentOperator === '%') {
+    currentResult = (currentResult / 100) * currentNumber;
+  }
+  else {
+    currentResult = currentNumber;
   }
 
   if (operator === '=') {
     result.value = currentResult;
     currentOperator = '';
     isOperatorClicked = false;
-  }
-  else if(operator === '+/-'){
+  } else if (operator === '+/-') {
+    currentResult = -currentResult;
     result.value = currentResult;
-    currentOperator = operator;
-  }
-  else if(operator === '√'){
+  } else if (operator === '√') {
+    currentResult = Math.sqrt(currentResult);
     result.value = currentResult;
-    currentOperator = operator;
-  }
-  else {
+  } else {
     result.value = currentResult + operator;
     currentOperator = operator;
+    isOperatorClicked = true;
   }
 }
